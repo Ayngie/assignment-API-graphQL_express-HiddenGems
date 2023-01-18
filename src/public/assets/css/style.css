@@ -1,1 +1,54 @@
 /* css */
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+    background-image: url("../images/DSC_0071.JPG");
+    background-size: cover;
+    background-position: center;
+}
+
+/* Headings */
+#welcomeText, #addTextText {
+    font-family:Apple Chancery, cursive, Luminari;
+    color: rgb(255, 157, 0);
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+
+}
+
+/* Containers */
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    margin: 3%;
+}
+
+#containerGetList, #containerAddItem {
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid rgb(229, 55, 99); */
+    width: 50vw;
+    padding: 2%;
+}
+
+/* Lägga till hidden gem */
+#containerAddItem {
+    display: flex;
+}
+#submitForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4%;
+    background-color: rgb(250, 235, 215, .5);
+    border-radius: 10px;
+    gap: 10px;
+}
+
+

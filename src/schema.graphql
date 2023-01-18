@@ -1,0 +1,11 @@
+type hiddengem
+
+type deletedResource
+
+type Query {
+
+}
+
+type Mutation {
+
+}
