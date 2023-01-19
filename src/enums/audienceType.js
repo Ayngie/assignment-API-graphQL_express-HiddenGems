@@ -1,0 +1,4 @@
+// exports.audienceType = {
+//   CUTE_FOR_COUPLES: "CUTE_FOR_COUPLES",
+//   FUN_FOR_THE_WHOLE_FAMILY: "FUN_FOR_THE_WHOLE_FAMILY",
+// };

@@ -11,12 +11,21 @@ body {
     background-position: center;
 }
 
-/* Headings */
-#welcomeText, #addTextText {
+/* Text */
+#welcomeText, #addTextText, #addTextTextMindre {
     font-family:Apple Chancery, cursive, Luminari;
-    color: rgb(255, 157, 0);
+    color: rgb(255, 111, 0);
     text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+    text-align: center;
+}
 
+#addTextText {
+    font-size: 1.2em;
+    margin-bottom: 0;
+}
+
+#addTextTextMindre {
+    font-size: 0.9em;
 }
 
 /* Containers */
@@ -27,6 +36,11 @@ body {
     /* justify-content: center; */
     margin: 3%;
 }
+#containerGetList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 #containerGetList, #containerAddItem {
     display: flex;
@@ -34,6 +48,32 @@ body {
     /* border: 1px solid rgb(229, 55, 99); */
     width: 50vw;
     padding: 2%;
+}
+
+/* Buttons */
+#getListBtn, #submitFormBtn {
+    width: 50%;
+    border: 1px solid lightgrey;
+    background-color: rgb(255, 249, 238);
+
+}
+#getListBtn:hover, #submitFormBtn:hover {
+    background-color: rgb(255, 227, 167);
+}
+
+#getListBtn:active, #submitFormBtn:active {
+    color: rgb(235, 245, 233);
+  }  
+/* Input */
+
+#addTextBox {
+    border: 1px solid lightgrey;
+    background-color: rgb(255, 249, 238);
+    font-style: italic;
+}
+
+#addTextBox:hover {
+    background-color: rgb(255, 253, 249);
 }
 
 /* Lägga till hidden gem */

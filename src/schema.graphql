@@ -1,11 +1,30 @@
-type hiddengem
+type HiddenGem {
+  name: String
+  description: String
+  id: ID
+  #   type: audienceType
+}
 
-type deletedResource
+# enum audienceType {
+#   CUTE_FOR_COUPLES
+#   FUN_FOR_THE_WHOLE_FAMILY
+# }
+
+# type DeletedResourceResponse {
+#   deletedId: ID
+#   success: Boolean
+# }
 
 type Query {
-
+  getAllHiddenGems: [HiddenGem]
 }
 
 type Mutation {
+  createHiddenGem(input: CreateHiddenGemInput!): HiddenGem
+  # deleteHiddenGem(gemId: ID!): DeletedResourceResponse
+}
 
+input CreateHiddenGemInput {
+  name: String!
+  description: String
 }
