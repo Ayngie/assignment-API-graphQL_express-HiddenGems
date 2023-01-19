@@ -26,5 +26,5 @@ type Mutation {
 
 input CreateHiddenGemInput {
   name: String!
-  description: String
+  description: String!
 }

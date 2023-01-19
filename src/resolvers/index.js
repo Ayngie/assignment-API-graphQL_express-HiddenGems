@@ -38,42 +38,14 @@ exports.resolvers = {
       // Destructure input variables
       const { name, description } = args.input; //dess ligger under input iom vi skapat ett inputobjekt med dessa egenskaper... Så vi plockar ut dem från input därför! Så vi kan accessa de värdena via de namnen.
 
-      // Verify name: om strängen är tom, return:a en error
-      // if (args.name.length === 0)
-      //   return new GraphQLError("Name must be at least 1 character long");
-
       // Skapa ett unikt id + data objektet // Skapa ett JS objekt som motsvarar hur vi vill att datan ska läggas in i vårt Sheet + generate random ID för våran Ticket. //All data som vi vill skicka upp skriver vi in här, sen måste titlarna i spreadsheeten matcha dessa för att de ska läggs till därunder, annars blir det fel.
       const newHiddenGem = {
         // Generera ett random id (av typ UUID)
-        name: args.name,
-        description: args.description || "",
+        name: name,
+        description: description || "",
         id: crypto.randomUUID(),
       };
 
-      // // Skapa filePath för där vi ska skapa våran fil
-      // let filePath = `${process.env.SHEETDB_URI}/id/${id}`;
-      // // Kolla att vårat auto-genererade hiddenGemsId inte har använts förut
-      // let idExists = true;
-      // while (idExists) {
-      //   const exists = await fileExists(filePath); // kolla om filen existerar
-      //   console.log(exists, newHiddenGem.id);
-      //   // om filen redan existerar generera ett nytt hiddenGemsId och uppdatera filePath
-      //   if (exists) {
-      //     newHiddenGem.id = crypto.randomUUID();
-      //     filePath = `${process.env.SHEETDB_URI}/id/${newHiddenGem.id}`;
-      //   }
-      //   // uppdatera idExists (för att undvika infinite loops)
-      //   idExists = exists;
-      // }
-
-      // Skapa en fil för vår nya hiddenGem i /data/hiddenGems
-      // await fsPromises.writeFile(filePath, JSON.stringify(newHiddenGem));
-
-      // Return:a våran respons; vår nyskapade hiddenGem
-      //   return newHiddenGem;
-
-      // POST request till SheetDB API:et = Lägga till en rad för
-      // denna ticket i vårat sheet
       try {
         const endpoint = process.env.SHEETDB_URI;
         const response = await axios.post(

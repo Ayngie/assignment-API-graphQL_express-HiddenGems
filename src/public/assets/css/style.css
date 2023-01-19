@@ -9,9 +9,11 @@ body {
     background-image: url("../images/DSC_0071.JPG");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Text */
+
 #welcomeText, #addTextText, #addTextTextMindre {
     font-family:Apple Chancery, cursive, Luminari;
     color: rgb(255, 111, 0);
@@ -26,6 +28,20 @@ body {
 
 #addTextTextMindre {
     font-size: 0.9em;
+}
+
+.hiddenGem__Name {
+    font-size: 1.2em;
+    margin-bottom: 0;
+
+    font-family:Apple Chancery, cursive, Luminari;
+    color: rgb(255, 111, 0);
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+}
+
+.hiddenGem__Description {
+    font-size: 0.9em;
+    font-family:Apple Chancery, cursive, Luminari;
 }
 
 /* Containers */
@@ -50,11 +66,17 @@ body {
     padding: 2%;
 }
 
+.hiddenGem {
+    margin: 1%;
+    background-color: rgb(255, 249, 238);
+}
+
 /* Buttons */
+
 #getListBtn, #submitFormBtn {
     width: 50%;
     border: 1px solid lightgrey;
-    background-color: rgb(255, 249, 238);
+    background-color: rgb(255, 240, 212);
 
 }
 #getListBtn:hover, #submitFormBtn:hover {
@@ -64,6 +86,7 @@ body {
 #getListBtn:active, #submitFormBtn:active {
     color: rgb(235, 245, 233);
   }  
+
 /* Input */
 
 #addTextBox {
@@ -77,6 +100,7 @@ body {
 }
 
 /* Lägga till hidden gem */
+
 #containerAddItem {
     display: flex;
 }
