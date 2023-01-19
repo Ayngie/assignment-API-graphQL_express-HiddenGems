@@ -7,7 +7,7 @@ window.onload = function () {
   handleSubmit();
 };
 
-//Vad gör vi här: ... ?
+//Syfte:
 const graphQlQuery = async (url, query, variables = {}) => {
   const response = await fetch(url, {
     method: "POST",
@@ -25,9 +25,9 @@ const graphQlQuery = async (url, query, variables = {}) => {
 };
 
 //FÖR QUERY
-//Vad gör vi här: ... ?
-//?vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
-//?Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
+//Syfte:
+//Vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
+//Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
 const getAllHiddenGemsQuery = `query getAllHiddenGems {
     getAllHiddenGems {
       name
@@ -92,9 +92,9 @@ function createHTML(hiddenGemsList) {
 }
 
 //FÖR MUTATION
-//Vad gör vi här: ... ?
-//?vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
-//?Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
+//Syfte:
+//Vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
+//Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
 const createHiddenGemQuery = `mutation CreateHiddenGem($input: CreateHiddenGemInput!) {
   createHiddenGem(input: $input) { 
     name
