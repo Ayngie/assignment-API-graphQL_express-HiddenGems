@@ -5,7 +5,6 @@ let hiddenGemsList = [];
 window.onload = function () {
   handleButtonClick();
   handleSubmit();
-  handleSortListBtn();
 };
 
 //Vad gör vi här: ... ?
@@ -111,8 +110,8 @@ async function handleSubmit() {
   submitForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = e.target.querySelector("#addNameTextBox").value; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
-    const description = e.target.querySelector("#addDescriptionTextBox").value; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
+    const name = e.target.querySelector("#addNameTextBox").value; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ gå att kompilera!
+    const description = e.target.querySelector("#addDescriptionTextBox").value; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ gå att kompilera!
     // console.log(name);
     // console.log(description);
 
@@ -139,8 +138,8 @@ async function handleSubmit() {
     //Lägga till på listan och uppdatera html
 
     //Rensa inputs
-    e.target.querySelector("#addNameTextBox").value = ""; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
-    e.target.querySelector("#addDescriptionTextBox").value = ""; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
+    e.target.querySelector("#addNameTextBox").value = ""; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ gå att kompilera!
+    e.target.querySelector("#addDescriptionTextBox").value = ""; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ gå att kompilera!
 
     //Skapa upp nya listan i html
     const newListResponse = await graphQlQuery(
