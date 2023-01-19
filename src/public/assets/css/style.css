@@ -77,8 +77,9 @@ body {
     width: 50%;
     border: 1px solid lightgrey;
     background-color: rgb(255, 240, 212);
-
+    font-family:Apple Chancery, cursive, Luminari;
 }
+
 #getListBtn:hover, #submitFormBtn:hover {
     background-color: rgb(255, 227, 167);
 }
@@ -89,13 +90,13 @@ body {
 
 /* Input */
 
-#addTextBox {
+.addTextBox {
     border: 1px solid lightgrey;
     background-color: rgb(255, 249, 238);
     font-style: italic;
 }
 
-#addTextBox:hover {
+.addTextBox:hover {
     background-color: rgb(255, 253, 249);
 }
 

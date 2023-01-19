@@ -2,6 +2,12 @@
 
 let hiddenGemsList = [];
 
+window.onload = function () {
+  handleButtonClick();
+  handleSubmit();
+};
+
+//Vad gör vi här: ... ?
 const graphQlQuery = async (url, query, variables = {}) => {
   const response = await fetch(url, {
     method: "POST",
@@ -19,29 +25,39 @@ const graphQlQuery = async (url, query, variables = {}) => {
 };
 
 //FÖR QUERY
-
+//Vad gör vi här: ... ?
+//?vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
+//?Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
 const getAllHiddenGemsQuery = `query getAllHiddenGems {
-  getAllHiddenGems {
-    name
-    description
-    id
-  }
-}`; //Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
+    getAllHiddenGems {
+      name
+      description
+      id
+    }
+  }`;
 
-const getListButton = document.getElementById("getListBtn");
-getListButton.addEventListener("click", async () => {
-  const response = await graphQlQuery(
-    "http://localhost:5000/graphql",
-    getAllHiddenGemsQuery
-  );
+async function handleButtonClick() {
+  // Nu hämtar vi o lyssnar på knappen som ska visa listan, och inne i anonyma funktionen på vår addEventListener:
+  // - awaitar vi inbyggda funktionen graphQLQuery (och skickar med url:en, samt query-variabeln vi nyss skapade.
+  // - vi skapar även en variabel för att fånga upp ett objekt i vår response, nämligen listan vi får tillbaka
+  // - Sist så anropar vi createHTML med denna lista.
+  const getListBtn = document.getElementById("getListBtn");
 
-  console.log(response);
+  getListBtn.addEventListener("click", async () => {
+    const response = await graphQlQuery(
+      "http://localhost:5000/graphql",
+      getAllHiddenGemsQuery
+    );
 
-  hiddenGemsList = response.getAllHiddenGems;
+    // console.log(response);
 
-  createHTML(hiddenGemsList);
-});
+    hiddenGemsList = response.getAllHiddenGems;
 
+    createHTML(hiddenGemsList);
+  });
+}
+
+// Vi skapar sen upp detta i html med en "vanlig" createHTML funktion:
 function createHTML(hiddenGemsList) {
   let listContainer = document.getElementById("listContainer");
 
@@ -67,47 +83,64 @@ function createHTML(hiddenGemsList) {
 }
 
 //FÖR MUTATION
+//Vad gör vi här: ... ?
+//?vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
+//?Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
+const createHiddenGemQuery = `mutation CreateHiddenGem($input: CreateHiddenGemInput!) {
+  createHiddenGem(input: $input) { 
+    name
+    description
+    id
+  }
+}`;
 
-// const createHiddenGemQuery = `mutation CreateHiddenGem($name: String!, $description: String) {
-//   createHiddenGem(name: $name, description: $description) {
-//       name
-//       description
-//       id
-//   }
-// }`;
+async function handleSubmit() {
+  //vi lyssnar på knappen för att submit:a formuläret.
+  const submitForm = document.querySelector("#submitForm");
 
-// const createHiddenGemQueryVars = {
-//   name: "Visby",
-//   description: "Rosornas stad",
-// };
+  submitForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-// const submitForm = document.querySelector("#submitForm");
+    const name = e.target.querySelector("#addNameTextBox").value; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
+    const description = e.target.querySelector("#addDescriptionTextBox").value; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
+    // console.log(name);
+    // console.log(description);
 
-// submitForm.addEventListener("click", async (e) => {
-//   e.preventDefault();
-//   //const response = await graphQlQuery('/graphql', createProjectQuery, createProjectQueryVars)
+    const response = await fetch("/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: createHiddenGemQuery, //säger vad jag vill att graphql ska göra
+        variables: {
+          //matchar min apollo server variable
+          input: {
+            name: name,
+            description: description,
+          },
+        },
+      }),
+    });
 
-//   const response = await fetch("/graphql", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       query: `mutation CreateHiddenGem($name: String!) {
-//               createHiddenGem(name: $name) {
-//                   name
-//                   description
-//                   id
-//               }
-//           }`,
-//       variables: {
-//         name: "Visby",
-//       },
-//     }),
-//   });
+    const data = await response.json();
+    // console.log(data);
 
-//   const data = await response.json();
+    //Lägga till på listan och uppdatera html
 
-//   console.log(data); //denna la jag till
-//   console.log(response);
-// });
+    //Rensa inputs
+    e.target.querySelector("#addNameTextBox").value = ""; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
+    e.target.querySelector("#addDescriptionTextBox").value = ""; //Petters lösning. Röd squiggly pga typescript checker säger är fel, men funkar i JS. //OBS! SKulle EJ kompilera!
+
+    //Skapa upp nya listan i html
+    const newListResponse = await graphQlQuery(
+      "http://localhost:5000/graphql",
+      getAllHiddenGemsQuery
+    );
+    // console.log(newListResponse);
+
+    let newHiddenGemsList = newListResponse.getAllHiddenGems;
+
+    createHTML(newHiddenGemsList);
+  });
+}
