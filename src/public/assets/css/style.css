@@ -73,18 +73,18 @@ body {
 
 /* Buttons */
 
-#getListBtn, #submitFormBtn {
+#getListBtn, #submitFormBtn, .sortBtn {
     width: 50%;
     border: 1px solid lightgrey;
     background-color: rgb(255, 240, 212);
     font-family:Apple Chancery, cursive, Luminari;
 }
 
-#getListBtn:hover, #submitFormBtn:hover {
+#getListBtn:hover, #submitFormBtn:hover, .sortBtn:hover {
     background-color: rgb(255, 227, 167);
 }
 
-#getListBtn:active, #submitFormBtn:active {
+#getListBtn:active, #submitFormBtn:active, .sortBtn:active {
     color: rgb(235, 245, 233);
   }  
 

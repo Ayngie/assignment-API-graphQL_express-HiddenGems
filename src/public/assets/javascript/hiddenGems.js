@@ -5,6 +5,7 @@ let hiddenGemsList = [];
 window.onload = function () {
   handleButtonClick();
   handleSubmit();
+  handleSortListBtn();
 };
 
 //Vad gör vi här: ... ?
@@ -62,6 +63,15 @@ function createHTML(hiddenGemsList) {
   let listContainer = document.getElementById("listContainer");
 
   listContainer.innerHTML = "";
+
+  let sortBtn = document.createElement("button");
+  sortBtn.innerHTML = "Sortera A-Z";
+  sortBtn.classList.add("sortBtn");
+  sortBtn.classList.add("btn", "btn-light");
+  sortBtn.addEventListener("click", () => {
+    sortToDoListByABC(hiddenGemsList);
+  }); //hämtar knappen för att sortera listitems i alfabetisk ordning, lyssnar på den, för att vid klick ->anropa funktion sortTodoList.
+  listContainer.appendChild(sortBtn);
 
   for (let i = 0; i < hiddenGemsList.length; i++) {
     let container = document.createElement("div");
@@ -143,4 +153,20 @@ async function handleSubmit() {
 
     createHTML(newHiddenGemsList);
   });
+}
+
+function sortToDoListByABC(hiddenGemsList) {
+  hiddenGemsList.sort((a, b) => {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+      return -1;
+    }
+
+    if (a.name.toLowerCase() === b.name.toLowerCase()) {
+      return 0;
+    } else {
+      return +1;
+    }
+  });
+
+  createHTML(hiddenGemsList);
 }
