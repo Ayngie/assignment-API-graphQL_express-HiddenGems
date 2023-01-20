@@ -218,8 +218,7 @@ function handleHideListButtonClick() {
   const hideListBtn = document.getElementById("hideListBtn");
 
   hideListBtn.addEventListener("click", async () => {
-    let hiddenGemsList = [];
-    createHTML(hiddenGemsList);
+    location.reload(); //Laddar om sidan så att listan automatiskt döljs (inkl sortBtn)
   });
 }
 
