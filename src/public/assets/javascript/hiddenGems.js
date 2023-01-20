@@ -7,16 +7,17 @@ window.onload = function () {
   handleSubmit();
 };
 
-//Syfte:
+//Syfte:låter oss återanvända fetch lättare  //koden för att göra vår fetch för att sen kunna bara skicka in en variabel
 const graphQlQuery = async (url, query, variables = {}) => {
+  //url till servern där vi har vårt graphql api (skapat av vår apollo server (verktyg) //parametrar som måste heta så här iom bodyn innehåll nedan
   const response = await fetch(url, {
-    method: "POST",
+    method: "POST", //vi gör alltid postrequest till ett graphql-api //kan därav ha reusable function //syntax för detta finns i en slide från lektion i v.2
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query,
-      variables,
+      query, //utbytbart för olika requests
+      variables, //utbytbart för olika requests
     }),
   });
 
@@ -25,9 +26,13 @@ const graphQlQuery = async (url, query, variables = {}) => {
 };
 
 //FÖR QUERY
-//Syfte:
+//Syfte: se nedan
 //Vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
 //Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
+//textsträng som skickas till graphql för tolkning - följer därav syntax
+//1. query - vi ska göra en query, -optional att skriva getAllHiddenGems efter, som samlingsnamn för queries i bodyn
+//2. andra getAllHiddenGems är namnet på resolvern vi vill ha
+//3. fälten vi vill ha tillbaka
 const getAllHiddenGemsQuery = `query getAllHiddenGems {
     getAllHiddenGems {
       name
@@ -92,9 +97,12 @@ function createHTML(hiddenGemsList) {
 }
 
 //FÖR MUTATION
-//Syfte:
+//Syfte: se nedan
 //Vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
 //Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
+//Nu vill vi göra en mutation, sen har vi samlingsnamnet, sen paranteser m in-parametrar, sen matchar vi dem -
+//- skickar in ett js objekt som matchar - dollartecknet är framför det variabelnamn vi måste använda (ett sätt för graphql att skilja variabelnamnet från annat).
+//sen skickar vi med objektet... matchar schemat.
 const createHiddenGemQuery = `mutation CreateHiddenGem($input: CreateHiddenGemInput!) {
   createHiddenGem(input: $input) { 
     name
