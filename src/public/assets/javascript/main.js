@@ -6,7 +6,8 @@ window.onload = function () {
   handleSubmit();
 };
 
-// BOILER PLATE
+/*-------------------------------------------- BOILER PLATE ---------------------------------------------*/
+
 //för vår fetch
 //graphQlQuery är ju en async function helt enkelt som vi skickar in olika parametrar in beroende på om vi vill göra en query eller mutation?
 //Syfte:låter oss återanvända fetch lättare  //koden för att göra vår fetch för att sen kunna bara skicka in en variabel
@@ -27,7 +28,8 @@ const graphQlQuery = async (url, query, variables = {}) => {
   return res.data;
 };
 
-//FÖR QUERY
+/*-------------------------------------------- FÖR QUERY ---------------------------------------------*/
+
 //Syfte: se nedan
 //Vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
 //Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
@@ -64,61 +66,8 @@ async function handleGetListButtonClick() {
   });
 }
 
-//Gömma listan - aka visa tom lista och ta bort sorteringsknappen :)
-async function handleHideListButtonClick() {
-  const hideListBtn = document.getElementById("hideListBtn");
+/*-------------------------------------------- FÖR MUTATION ---------------------------------------------*/
 
-  hideListBtn.addEventListener("click", async () => {
-    let hiddenGemsList = [];
-    createHTML(hiddenGemsList);
-  });
-}
-
-// Vi skapar sen upp detta i html med en "vanlig" createHTML funktion:
-function createHTML(hiddenGemsList) {
-  let listContainer = document.getElementById("listContainer");
-
-  listContainer.innerHTML = "";
-
-  let sortBtn = document.createElement("button");
-  sortBtn.innerHTML = "Sortera A-Z";
-  sortBtn.classList.add("sortBtn");
-  sortBtn.classList.add("btn", "btn-light");
-  sortBtn.addEventListener("click", () => {
-    sortToDoListByABC(hiddenGemsList);
-  }); //hämtar knappen för att sortera listitems i alfabetisk ordning, lyssnar på den, för att vid klick ->anropa funktion sortTodoList.
-  listContainer.appendChild(sortBtn);
-
-  for (let i = 0; i < hiddenGemsList.length; i++) {
-    let container = document.createElement("div");
-    let name = document.createElement("p");
-    let description = document.createElement("p");
-    let deleteBtn = document.createElement("button");
-
-    container.classList.add("hiddenGem");
-    container.classList.add("form-control");
-    name.className = "hiddenGem__Name";
-    description.className = "hiddenGem__Description";
-    deleteBtn.classList.add("deleteBtn");
-    deleteBtn.setAttribute("type", "button");
-    // deleteBtn.setAttribute("id", "submitForm");
-
-    name.innerHTML = hiddenGemsList[i].name;
-    description.innerHTML = hiddenGemsList[i].description;
-    deleteBtn.innerHTML = "Ta bort";
-
-    deleteBtn.addEventListener("click", () => {
-      deleteHiddenGem(hiddenGemsList[i].id);
-    });
-
-    container.appendChild(name);
-    container.appendChild(description);
-    container.appendChild(deleteBtn);
-    listContainer.appendChild(container);
-  }
-}
-
-//FÖR MUTATION
 //Syfte: se nedan
 //Vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
 //Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
@@ -185,22 +134,6 @@ async function handleSubmit() {
   });
 }
 
-function sortToDoListByABC(hiddenGemsList) {
-  hiddenGemsList.sort((a, b) => {
-    if (a.name.toLowerCase() < b.name.toLowerCase()) {
-      return -1;
-    }
-
-    if (a.name.toLowerCase() === b.name.toLowerCase()) {
-      return 0;
-    } else {
-      return +1;
-    }
-  });
-
-  createHTML(hiddenGemsList);
-}
-
 const deleteHiddenGemQuery = `mutation DeleteHiddenGem($gemId: ID!) {
   deleteHiddenGem(gemId: $gemId) {
     deletedId
@@ -233,3 +166,78 @@ async function getList() {
 
   createHTML(hiddenGemsList);
 }
+
+/*-------------------------------------------- FÖR HTML ---------------------------------------------*/
+
+// Vi skapar sen upp detta i html med en "vanlig" createHTML funktion:
+function createHTML(hiddenGemsList) {
+  let listContainer = document.getElementById("listContainer");
+
+  listContainer.innerHTML = "";
+
+  let sortBtn = document.createElement("button");
+  sortBtn.innerHTML = "Sortera A-Z";
+  sortBtn.classList.add("sortBtn");
+  sortBtn.classList.add("btn", "btn-light");
+  sortBtn.addEventListener("click", () => {
+    sortToDoListByABC(hiddenGemsList);
+  }); //hämtar knappen för att sortera listitems i alfabetisk ordning, lyssnar på den, för att vid klick ->anropa funktion sortTodoList.
+  listContainer.appendChild(sortBtn);
+
+  for (let i = 0; i < hiddenGemsList.length; i++) {
+    let container = document.createElement("div");
+    let name = document.createElement("p");
+    let description = document.createElement("p");
+    let deleteBtn = document.createElement("button");
+
+    container.classList.add("hiddenGem");
+    container.classList.add("form-control");
+    name.className = "hiddenGem__Name";
+    description.className = "hiddenGem__Description";
+    deleteBtn.classList.add("deleteBtn");
+    deleteBtn.setAttribute("type", "button");
+    // deleteBtn.setAttribute("id", "submitForm");
+
+    name.innerHTML = hiddenGemsList[i].name;
+    description.innerHTML = hiddenGemsList[i].description;
+    deleteBtn.innerHTML = "Ta bort";
+
+    deleteBtn.addEventListener("click", () => {
+      deleteHiddenGem(hiddenGemsList[i].id);
+    });
+
+    container.appendChild(name);
+    container.appendChild(description);
+    container.appendChild(deleteBtn);
+    listContainer.appendChild(container);
+  }
+}
+
+//Funktion för att dölja listan igen
+function handleHideListButtonClick() {
+  const hideListBtn = document.getElementById("hideListBtn");
+
+  hideListBtn.addEventListener("click", async () => {
+    let hiddenGemsList = [];
+    createHTML(hiddenGemsList);
+  });
+}
+
+//Funktion för att sortera listan
+function sortToDoListByABC(hiddenGemsList) {
+  hiddenGemsList.sort((a, b) => {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+      return -1;
+    }
+
+    if (a.name.toLowerCase() === b.name.toLowerCase()) {
+      return 0;
+    } else {
+      return +1;
+    }
+  });
+
+  createHTML(hiddenGemsList);
+}
+
+/*-----------------------------------------------------------------------------------------*/
