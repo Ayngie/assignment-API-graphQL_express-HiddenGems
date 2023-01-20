@@ -1,7 +1,8 @@
 let hiddenGemsList = [];
 
 window.onload = function () {
-  handleButtonClick();
+  handleGetListButtonClick();
+  handleHideListButtonClick();
   handleSubmit();
 };
 
@@ -42,7 +43,7 @@ const getAllHiddenGemsQuery = `query getAllHiddenGems {
     }
   }`;
 
-async function handleButtonClick() {
+async function handleGetListButtonClick() {
   // Nu hämtar vi o lyssnar på knappen som ska visa listan, och inne i anonyma funktionen på vår addEventListener:
   // - awaitar vi inbyggda funktionen graphQLQuery (och skickar med url:en, samt query-variabeln vi nyss skapade.
   // - vi skapar även en variabel för att fånga upp ett objekt i vår response, nämligen listan vi får tillbaka
@@ -59,6 +60,16 @@ async function handleButtonClick() {
 
     hiddenGemsList = response.getAllHiddenGems;
 
+    createHTML(hiddenGemsList);
+  });
+}
+
+//Gömma listan - aka visa tom lista och ta bort sorteringsknappen :)
+async function handleHideListButtonClick() {
+  const hideListBtn = document.getElementById("hideListBtn");
+
+  hideListBtn.addEventListener("click", async () => {
+    let hiddenGemsList = [];
     createHTML(hiddenGemsList);
   });
 }
@@ -82,17 +93,27 @@ function createHTML(hiddenGemsList) {
     let container = document.createElement("div");
     let name = document.createElement("p");
     let description = document.createElement("p");
+    let deleteBtn = document.createElement("button");
 
     container.classList.add("hiddenGem");
     container.classList.add("form-control");
     name.className = "hiddenGem__Name";
     description.className = "hiddenGem__Description";
+    deleteBtn.classList.add("deleteBtn");
+    deleteBtn.setAttribute("type", "button");
+    // deleteBtn.setAttribute("id", "submitForm");
 
     name.innerHTML = hiddenGemsList[i].name;
     description.innerHTML = hiddenGemsList[i].description;
+    deleteBtn.innerHTML = "Ta bort";
+
+    deleteBtn.addEventListener("click", () => {
+      deleteHiddenGem(hiddenGemsList[i].id);
+    });
 
     container.appendChild(name);
     container.appendChild(description);
+    container.appendChild(deleteBtn);
     listContainer.appendChild(container);
   }
 }
@@ -176,6 +197,39 @@ function sortToDoListByABC(hiddenGemsList) {
       return +1;
     }
   });
+
+  createHTML(hiddenGemsList);
+}
+
+const deleteHiddenGemQuery = `mutation DeleteHiddenGem($gemId: ID!) {
+  deleteHiddenGem(gemId: $gemId) {
+    deletedId
+    success
+  }
+}`;
+
+async function deleteHiddenGem(id) {
+  //här döper jag om gemId till id så att det matchar vad id heter i queryn för getAllHiddenGems.
+  const response = await graphQlQuery(
+    "http://localhost:5000/graphql",
+    deleteHiddenGemQuery,
+    {
+      gemId: id, //här måste detta heta id iom det heter så i query syntaxen.
+    }
+  );
+  console.log(response);
+  getList(); //anrop av asynk funktion (som ska invänta api med data, o sen den skapa ny html);
+}
+
+async function getList() {
+  const response = await graphQlQuery(
+    "http://localhost:5000/graphql",
+    getAllHiddenGemsQuery
+  );
+
+  console.log(response);
+
+  hiddenGemsList = response.getAllHiddenGems;
 
   createHTML(hiddenGemsList);
 }

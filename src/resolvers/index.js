@@ -71,8 +71,29 @@ exports.resolvers = {
       return newHiddenGem;
     },
 
-    // deleteHiddenGem: async (_, args) => {
-    //   return null;
-    // },
+    deleteHiddenGem: async (_, args) => {
+      //get id of Hidden Gem to be deleted:
+      const gemId = args.gemId;
+
+      try {
+        const endpoint = `${process.env.SHEETDB_URI}/id/${gemId}`; //denna rad är den som överensstämmer med dokumentationens rad om hur man deletar...
+        const response = await axios.delete(endpoint);
+        //console.log(endpoint);
+        console.log(response.data);
+        return {
+          deletedId: gemId,
+          success: true,
+        };
+      } catch (error) {
+        console.error(error);
+        // return new GraphQLError("Oops, could not delete that");
+        return {
+          //Petter kommenterade bort GraphQLError funktionen o kör en liten egen return ist - varför? För att det kan vara långa errormeddelanden från graphql som är svåra för oss att förstå, medan här så kan vi se tydligare om error att det inte deletades det som vi ville.
+          deletedId: gemId,
+          success: false,
+        };
+      }
+      // return null; //används i början när vi sätter upp koden för att kunna kolla
+    },
   },
 };

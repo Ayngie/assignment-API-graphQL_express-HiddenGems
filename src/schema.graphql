@@ -10,10 +10,10 @@ type HiddenGem {
 #   FUN_FOR_THE_WHOLE_FAMILY
 # }
 
-# type DeletedResourceResponse {
-#   deletedId: ID
-#   success: Boolean
-# }
+type DeletedResourceResponse {
+  deletedId: ID
+  success: Boolean
+}
 
 type Query {
   getAllHiddenGems: [HiddenGem]
@@ -21,7 +21,7 @@ type Query {
 
 type Mutation {
   createHiddenGem(input: CreateHiddenGemInput!): HiddenGem
-  # deleteHiddenGem(gemId: ID!): DeletedResourceResponse
+  deleteHiddenGem(gemId: ID!): DeletedResourceResponse
 }
 
 input CreateHiddenGemInput {

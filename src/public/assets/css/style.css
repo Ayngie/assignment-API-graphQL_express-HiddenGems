@@ -73,18 +73,25 @@ body {
 
 /* Buttons */
 
-#getListBtn, #submitFormBtn, .sortBtn {
-    width: 50%;
+#getListBtn, #hideListBtn, #submitFormBtn, .sortBtn, .deleteBtn {
+    width: 200px;
     border: 1px solid lightgrey;
     background-color: rgb(255, 240, 212);
     font-family:Apple Chancery, cursive, Luminari;
 }
+#hideListBtn {
+    width: 100px;
+}
 
-#getListBtn:hover, #submitFormBtn:hover, .sortBtn:hover {
+.deleteBtn {
+    border-radius: 3px;
+}
+
+#getListBtn:hover, #hideListBtn:hover, #submitFormBtn:hover, .sortBtn:hover, .deleteBtn:hover {
     background-color: rgb(255, 227, 167);
 }
 
-#getListBtn:active, #submitFormBtn:active, .sortBtn:active {
+#getListBtn:active,#hideListBtn:active, #submitFormBtn:active, .sortBtn:active, .deleteBtn:active {
     color: rgb(235, 245, 233);
   }  
 
