@@ -7,6 +7,7 @@ window.onload = function () {
   handleSubmit();
 };
 
+//graphQlQuery är ju en async function helt enkelt som vi skickar in olika parametrar in beroende på om vi vill göra en query eller mutation?
 //Syfte:låter oss återanvända fetch lättare  //koden för att göra vår fetch för att sen kunna bara skicka in en variabel
 const graphQlQuery = async (url, query, variables = {}) => {
   //url till servern där vi har vårt graphql api (skapat av vår apollo server (verktyg) //parametrar som måste heta så här iom bodyn innehåll nedan
