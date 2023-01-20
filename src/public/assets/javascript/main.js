@@ -1,5 +1,3 @@
-// BOILER PLATE
-
 let hiddenGemsList = [];
 
 window.onload = function () {
@@ -7,6 +5,8 @@ window.onload = function () {
   handleSubmit();
 };
 
+// BOILER PLATE
+//för vår fetch
 //graphQlQuery är ju en async function helt enkelt som vi skickar in olika parametrar in beroende på om vi vill göra en query eller mutation?
 //Syfte:låter oss återanvända fetch lättare  //koden för att göra vår fetch för att sen kunna bara skicka in en variabel
 const graphQlQuery = async (url, query, variables = {}) => {
@@ -101,6 +101,7 @@ function createHTML(hiddenGemsList) {
 //Syfte: se nedan
 //Vi skapar en query-variabel som innehåller typ syntax för hur en query ser ut i apollo server - och som matchar vår query i vårt schema
 //Denna syntax kan man hitta (och copy-pastea om man vill) i sin graphql playground på apollo server (om man inte kan det i huvudet).
+//textsträng som skickas till graphql för tolkning - följer därav syntax
 //Nu vill vi göra en mutation, sen har vi samlingsnamnet, sen paranteser m in-parametrar, sen matchar vi dem -
 //- skickar in ett js objekt som matchar - dollartecknet är framför det variabelnamn vi måste använda (ett sätt för graphql att skilja variabelnamnet från annat).
 //sen skickar vi med objektet... matchar schemat.
