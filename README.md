@@ -10,7 +10,7 @@ As I used express, I was able to add frontend as well.
 Course: API-utveckling, FED22S, Medieinstitutet Sthlm.
 
 ## Screenshot of project
-![Hidden Gems](https://angelicareutersward.se/assets/hiddenGems/hiddenGems.png)
+![Hidden Gems](https://angelicareutersward.se/Images/hiddenGems/HiddenGems.png)
 
 ## Techniques used
 ![VSCode badge](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white/to/img.png)
